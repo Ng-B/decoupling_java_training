@@ -5,3 +5,5 @@
 target/
 #Editor config.
 .editorconfig
+#Grader
+grader/
