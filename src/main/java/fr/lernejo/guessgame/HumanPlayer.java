@@ -7,14 +7,21 @@ import java.util.Scanner;
 public class HumanPlayer implements Player {
 
     private final Logger logger = LoggerFactory.getLogger("player");
+    private final Scanner scanner = new Scanner(System.in);
 
     @Override
     public long askNextGuess() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Enter your guess number ;");
-        long guess = Long.parseLong(scanner.nextLine());
-        this.logger.log("Player guess : " + guess);
-        return guess;
+
+        logger.log("Enter a number to guess:");
+
+        do {
+            String input = scanner.nextLine();
+            try {
+                return Long.parseLong(input);
+            } catch (NumberFormatException e) {
+                logger.log("Please enter a valid number:");
+            }
+        } while (true);
     }
 
     @Override
