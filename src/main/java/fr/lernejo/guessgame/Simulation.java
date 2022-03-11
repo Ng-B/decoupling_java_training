@@ -2,19 +2,20 @@
 package fr.lernejo.guessgame;
 
 import fr.lernejo.logger.*;
+import java.text.SimpleDateFormat;
 
 public class Simulation {
 
     private final Logger logger = LoggerFactory.getLogger("simulation");
     private final Player player;
-    private long numberToGuess;
+    private long numberGuess;
 
     public Simulation(Player player) {
         this.player = player;
     }
 
     public void initialize(long numberToGuess) {
-        this.numberToGuess = numberToGuess;
+        this.numberGuess = numberToGuess;
     }
 
     /**
@@ -23,12 +24,12 @@ public class Simulation {
     private boolean nextRound() {
         long guess = player.askNextGuess();
 
-        if (guess == numberToGuess) {
+        if (guess == numberGuess) {
             logger.log("Number found !");
             return true;
         }
 
-        if (guess > numberToGuess)
+        if (guess > numberGuess)
             player.respond(true);
         else
             player.respond(false);
@@ -36,13 +37,20 @@ public class Simulation {
         return false;
     }
 
-    public void loopUntilPlayerSucceed() {
-        boolean end;
+    public void loopUntilPlayerSucceed(long maxIterations) {
+        long counter = System.currentTimeMillis();
 
-        do {
-            end = this.nextRound();
-        } while (!end);
+        while (maxIterations > 0 && nextRound() == false)
+            maxIterations--;
 
-        this.logger.log("End of game !");
-    }
+        if (maxIterations == 0)
+            logger.log("No more available tries. Try again ");
+        else
+            logger.log("You found the number!");
+
+        long timeEnd = System.currentTimeMillis();
+        SimpleDateFormat form = new SimpleDateFormat("mm:ss:SSS");
+        String time = form.format(timeEnd-counter);
+
+        logger.log("Fin de partie, completé en " + time);    }
 }
