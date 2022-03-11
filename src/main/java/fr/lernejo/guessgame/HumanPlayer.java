@@ -1,7 +1,6 @@
 package fr.lernejo.guessgame;
 
-import fr.lernejo.logger.Logger;
-import fr.lernejo.logger.LoggerFactory;
+import fr.lernejo.logger.*;
 
 import java.util.Scanner;
 
@@ -20,9 +19,13 @@ public class HumanPlayer implements Player {
 
     @Override
     public void respond(boolean lowerOrGreater) {
-        if (lowerOrGreater)
-            logger.log("Solution is lower");
-        else
-            logger.log("Solution is higher");
+        if (lowerOrGreater) {
+            this.logger.log("answer is lower");
+            System.out.println("answer is lower");
+        }
+        else{
+            this.logger.log("answer is higher");
+            System.out.println("answer is higher");
+        }
     }
 }

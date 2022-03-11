@@ -28,7 +28,7 @@ public class Simulation {
             return true;
         }
 
-        if (guess < numberToGuess)
+        if (guess > numberToGuess)
             player.respond(true);
         else
             player.respond(false);
@@ -41,7 +41,8 @@ public class Simulation {
 
         do {
             end = this.nextRound();
-        } while (end);
+        } while (!end);
 
+        this.logger.log("End of game !");
     }
 }
