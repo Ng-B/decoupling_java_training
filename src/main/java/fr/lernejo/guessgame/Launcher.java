@@ -4,12 +4,11 @@ import java.security.SecureRandom;
 
 public class Launcher {
     public static void main(String[] args) {
-        if (args.length == 0) {
-            throw new IllegalArgumentException("Missing argument: [-interactive|-auto}");
-        }
-
         long maxIterations = Long.MAX_VALUE;
         final Simulation simulation;
+
+        if (args.length == 0)
+            throw new IllegalArgumentException("Missing argument: [-interactive|-auto}");
 
         if (args[0].equals("-interactive")) {
             simulation = new Simulation(new HumanPlayer());
@@ -19,9 +18,10 @@ public class Launcher {
             simulation.initialize(randomNumber);
         }
         else if (args[0].equals("-auto")) {
-            if (args.length != 2) {
+
+            if (args.length != 2)
                 throw new IllegalArgumentException("No number given");
-            }
+
 
             simulation = new Simulation(new ComputerPlayer());
             maxIterations = 1000;
